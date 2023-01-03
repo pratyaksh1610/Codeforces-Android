@@ -9,20 +9,63 @@
         android:id="@+id/contestsFragment"
         android:name="com.pratyaksh_khurana.codeforcesandroid.Fragments.ContestsFragment"
         android:label="fragment_contests"
-        tools:layout="@layout/fragment_contests" />
+        tools:layout="@layout/fragment_contests" >
+        <action
+            android:id="@+id/action_contestsFragment_to_problemsFragment"
+            app:destination="@id/problemsFragment" />
+        <action
+            android:id="@+id/action_contestsFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+        <action
+            android:id="@+id/action_contestsFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.pratyaksh_khurana.codeforcesandroid.Fragments.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_problemsFragment"
+            app:destination="@id/problemsFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_contestsFragment"
+            app:destination="@id/contestsFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_contestsFragment2"
+            app:destination="@id/contestsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/usersFragment"
         android:name="com.pratyaksh_khurana.codeforcesandroid.Fragments.UsersFragment"
         android:label="fragment_users"
-        tools:layout="@layout/fragment_users" />
+        tools:layout="@layout/fragment_users" >
+        <action
+            android:id="@+id/action_usersFragment_to_contestsFragment"
+            app:destination="@id/contestsFragment" />
+        <action
+            android:id="@+id/action_usersFragment_to_problemsFragment"
+            app:destination="@id/problemsFragment" />
+        <action
+            android:id="@+id/action_usersFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/problemsFragment"
         android:name="com.pratyaksh_khurana.codeforcesandroid.Fragments.ProblemsFragment"
         android:label="fragment_problems"
-        tools:layout="@layout/fragment_problems" />
+        tools:layout="@layout/fragment_problems" >
+        <action
+            android:id="@+id/action_problemsFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+        <action
+            android:id="@+id/action_problemsFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_problemsFragment_to_contestsFragment"
+            app:destination="@id/contestsFragment" />
+    </fragment>
 </navigation>

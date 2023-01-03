@@ -1,60 +1,91 @@
 package com.pratyaksh_khurana.codeforcesandroid.Fragments
 
+import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.pratyaksh_khurana.codeforcesandroid.Adapters.ProblemsAdapter
+import com.pratyaksh_khurana.codeforcesandroid.Adapters.ProblemsFragmentListener
+import com.pratyaksh_khurana.codeforcesandroid.DataClass.codeforces_problem
+import com.pratyaksh_khurana.codeforcesandroid.Interface.ApiInterface
 import com.pratyaksh_khurana.codeforcesandroid.R
+import kotlinx.android.synthetic.main.fragment_contests.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProblemsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ProblemsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class ProblemsFragment : Fragment(), ProblemsFragmentListener {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_problems, container, false)
+        val view = inflater.inflate(R.layout.fragment_problems, container, false)
+
+        loadProblems()
+
+        return view
+    }
+
+    private fun loadProblems() {
+        val retrofit = ApiInterface.Helper.initialiseRetrofitBuilderObjectProblem()
+        showToast()
+        val retrofitData = retrofit.getAllProblems()
+
+        retrofitData.enqueue(object : Callback<codeforces_problem> {
+            override fun onFailure(call: Call<codeforces_problem>, t: Throwable) {
+                fragment_contests_winner.visibility = View.VISIBLE
+                fragment_contest_error_msg.visibility = View.VISIBLE
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(
+                call: Call<codeforces_problem>,
+                response: Response<codeforces_problem>
+            ) {
+                fragment_contests_winner?.visibility = View.GONE
+                fragment_contest_error_msg?.visibility = View.GONE
+
+                val data = response.body()
+                if (data != null) {
+                    contest_rv.layoutManager = LinearLayoutManager(context)
+                    val adapter = context?.let {
+                        ProblemsAdapter(
+                            it,
+                            data.result.problems,
+                            this@ProblemsFragment
+                        )
+                    }
+                    contest_rv.adapter = adapter
+                    adapter?.notifyDataSetChanged()
+                } else {
+                    contest_rv?.visibility = View.GONE
+                    fragment_contests_winner?.visibility = View.VISIBLE
+                    fragment_contest_error_msg?.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProblemsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProblemsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    }
+
+    override fun onClick(id: String, index: String) {
+        val href = "https://codeforces.com/contest/$id/problem/$index"
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(requireContext(), Uri.parse(href))
+    }
+
+    private fun showToast() {
+        Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
     }
 }
