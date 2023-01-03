@@ -1,5 +1,6 @@
 package com.pratyaksh_khurana.codeforcesandroid.Adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ class ProblemsAdapter(
         return data.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProblemsViewHolder, position: Int) {
         holder.index.text = data[position].contestId.toString() + data[position].index + ":"
         holder.name.text = data[position].name

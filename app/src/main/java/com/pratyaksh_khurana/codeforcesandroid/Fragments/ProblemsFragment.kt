@@ -30,6 +30,7 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_problems, container, false)
 
+        // load problems on fragment
         loadProblems()
 
         return view
@@ -42,8 +43,8 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
 
         retrofitData.enqueue(object : Callback<codeforces_problem> {
             override fun onFailure(call: Call<codeforces_problem>, t: Throwable) {
-                fragment_contests_winner.visibility = View.VISIBLE
-                fragment_contest_error_msg.visibility = View.VISIBLE
+//                fragment_contests_winner.visibility = View.VISIBLE
+//                fragment_contest_error_msg.visibility = View.VISIBLE
             }
 
             @SuppressLint("NotifyDataSetChanged")
@@ -51,8 +52,8 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
                 call: Call<codeforces_problem>,
                 response: Response<codeforces_problem>
             ) {
-                fragment_contests_winner?.visibility = View.GONE
-                fragment_contest_error_msg?.visibility = View.GONE
+//                fragment_contests_winner?.visibility = View.GONE
+//                fragment_contest_error_msg?.visibility = View.GONE
 
                 val data = response.body()
                 if (data != null) {
@@ -67,9 +68,9 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
                     contest_rv.adapter = adapter
                     adapter?.notifyDataSetChanged()
                 } else {
-                    contest_rv?.visibility = View.GONE
-                    fragment_contests_winner?.visibility = View.VISIBLE
-                    fragment_contest_error_msg?.visibility = View.VISIBLE
+//                    contest_rv?.visibility = View.GONE
+//                    fragment_contests_winner?.visibility = View.VISIBLE
+//                    fragment_contest_error_msg?.visibility = View.VISIBLE
                 }
             }
         })
