@@ -32,5 +32,8 @@
     <string name="topcoder">topcoder.com</string>
     <string name="ctftime">ctftime.org</string>
     <string name="algotester">algotester</string>
+    <string name="users">Users</string>
+    <string name="news">News</string>
+    <string name="problems">Problems</string>
 
 </resources>

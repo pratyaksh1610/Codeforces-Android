@@ -54,7 +54,7 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
             ) {
                 val data = response.body()
                 if (data != null) {
-                    problems_rv.layoutManager = LinearLayoutManager(context)
+                    problems_rv?.layoutManager = LinearLayoutManager(context)
                     val adapter = context?.let {
                         ProblemsAdapter(
                             it,
@@ -62,7 +62,7 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
                             this@ProblemsFragment
                         )
                     }
-                    problems_rv.adapter = adapter
+                    problems_rv?.adapter = adapter
                     adapter?.notifyDataSetChanged()
                 }
             }
