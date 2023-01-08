@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.ContestsFragment">
 
-
     <LinearLayout
         android:id="@+id/ll_contests"
         android:layout_width="match_parent"
@@ -19,11 +18,11 @@
 
         <TextView
             android:id="@+id/fragment_contests_contest_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/text"
-            android:text="Contests"
+            android:text="@string/contests"
             android:textSize="25sp" />
 
         <ImageView
@@ -47,33 +46,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:tint="@null" />
-
-    <ImageView
-        android:id="@+id/fragment_contests_winner"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:src="@drawable/winner"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/fragment_contest_error_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/text"
-        android:gravity="center"
-        android:text="Contests are on the way to your \n device..."
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_contests_winner" />
-
 
     <LinearLayout
         android:id="@+id/fragment_contest_websites"
@@ -102,27 +74,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/text"
-                        android:text="Filters"
+                        android:text="@string/filters"
                         android:textSize="25sp" />
 
                     <TextView
                         android:id="@+id/filter_none"
-                        android:padding="2dp"
-                        android:background="@drawable/border_black_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:background="@drawable/border_black_gray"
                         android:fontFamily="@font/text"
-                        android:text="No filter"
+                        android:padding="2dp"
+                        android:text="@string/all_contests"
                         android:textSize="18sp" />
 
 
@@ -134,45 +106,50 @@
                     android:layout_margin="8dp"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_codeforces"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/codeforces"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/codeforces"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_codechef"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/codechef"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/codechef"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_atcoder"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/atcoder"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/atcoder"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_leetcode"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/leetcode"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/leetcode"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_hackerearth"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/hackerearth"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/hackerearth"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
 
                 </LinearLayout>
@@ -183,45 +160,50 @@
                     android:layout_margin="8dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/fragment_contests_hackerrank"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/fragment_contest_lightoj"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/hackerrank"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/lightoj"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_coding_ninjas"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/cn"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/cn"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_gfg"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/gfg"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/gfg"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_kaggle"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/kaggle"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/kaggle"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_project_euler"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/projecteuler"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/projecteuler"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
 
                 </LinearLayout>
@@ -233,37 +215,50 @@
                     android:layout_margin="8dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/fragment_contests_newton_school"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/fragment_contests_eolymp"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/newton_school"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/eolymp"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_google_kickstart_codejam"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/google"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/google"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_prepbytes"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/prepbytes"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/prepbytes"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fragment_contests_topcoder"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/topcoder"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/topcoder"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/fragment_contests_ctftime"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ctftime"
+                        app:civ_border_color="#adb5bd"
+                        app:civ_border_width="1dp" />
 
                 </LinearLayout>
 

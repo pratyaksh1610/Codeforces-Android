@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/text"
-                android:text="Rating: 3500, Tags: dp, greedy, implementation"
+                android:text="Difficulty: 3500, Tags: [dp, greedy, implementation]"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 

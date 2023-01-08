@@ -16,6 +16,7 @@ import com.pratyaksh_khurana.codeforcesandroid.DataClass.codeforces_problem
 import com.pratyaksh_khurana.codeforcesandroid.Interface.ApiInterface
 import com.pratyaksh_khurana.codeforcesandroid.R
 import kotlinx.android.synthetic.main.fragment_contests.*
+import kotlinx.android.synthetic.main.fragment_problems.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,8 +44,7 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
 
         retrofitData.enqueue(object : Callback<codeforces_problem> {
             override fun onFailure(call: Call<codeforces_problem>, t: Throwable) {
-//                fragment_contests_winner.visibility = View.VISIBLE
-//                fragment_contest_error_msg.visibility = View.VISIBLE
+                showToast()
             }
 
             @SuppressLint("NotifyDataSetChanged")
@@ -52,12 +52,9 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
                 call: Call<codeforces_problem>,
                 response: Response<codeforces_problem>
             ) {
-//                fragment_contests_winner?.visibility = View.GONE
-//                fragment_contest_error_msg?.visibility = View.GONE
-
                 val data = response.body()
                 if (data != null) {
-                    contest_rv.layoutManager = LinearLayoutManager(context)
+                    problems_rv.layoutManager = LinearLayoutManager(context)
                     val adapter = context?.let {
                         ProblemsAdapter(
                             it,
@@ -65,12 +62,8 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
                             this@ProblemsFragment
                         )
                     }
-                    contest_rv.adapter = adapter
+                    problems_rv.adapter = adapter
                     adapter?.notifyDataSetChanged()
-                } else {
-//                    contest_rv?.visibility = View.GONE
-//                    fragment_contests_winner?.visibility = View.VISIBLE
-//                    fragment_contest_error_msg?.visibility = View.VISIBLE
                 }
             }
         })
@@ -87,6 +80,6 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
     }
 
     private fun showToast() {
-        Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), R.string.loading, Toast.LENGTH_SHORT).show()
     }
 }

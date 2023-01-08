@@ -1,11 +1,13 @@
 package com.pratyaksh_khurana.codeforcesandroid.Fragments
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pratyaksh_khurana.codeforcesandroid.Adapters.NewsAdapter
@@ -30,6 +32,7 @@ class NewsFragment : Fragment(), NewsFragmentListener {
         val view = inflater.inflate(R.layout.fragment_news, container, false)
 
         loadNews()
+
         return view
     }
 
@@ -40,8 +43,7 @@ class NewsFragment : Fragment(), NewsFragmentListener {
 
         retrofitData.enqueue(object : Callback<news_json> {
             override fun onFailure(call: Call<news_json>, t: Throwable) {
-//                fragment_contests_winner.visibility = View.VISIBLE
-//                fragment_contest_error_msg.visibility = View.VISIBLE
+                showToast()
             }
 
             @SuppressLint("NotifyDataSetChanged")
@@ -49,9 +51,6 @@ class NewsFragment : Fragment(), NewsFragmentListener {
                 call: Call<news_json>,
                 response: Response<news_json>
             ) {
-//                fragment_contests_winner?.visibility = View.GONE
-//                fragment_contest_error_msg?.visibility = View.GONE
-
                 val data = response.body()
                 if (data != null) {
                     news_rv?.layoutManager = LinearLayoutManager(context)
@@ -60,22 +59,29 @@ class NewsFragment : Fragment(), NewsFragmentListener {
                     }
                     news_rv?.adapter = adapter
                     adapter?.notifyDataSetChanged()
-                } else {
-//                    contest_rv?.visibility = View.GONE
-//                    fragment_contests_winner?.visibility = View.VISIBLE
-//                    fragment_contest_error_msg?.visibility = View.VISIBLE
                 }
             }
         })
     }
 
     private fun showToast() {
-        Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), R.string.loading, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
     }
 
-    override fun onClick() {
+    override fun onClickOpenComment(blogId: String, commentId: String) {
+        val href = getString(R.string.open_blog_comment, blogId, commentId)
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(requireContext(), Uri.parse(href))
+    }
+
+    override fun onClickOpenBlog(blogId: String) {
+        val href = getString(R.string.open_blog, blogId)
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(requireContext(), Uri.parse(href))
     }
 }

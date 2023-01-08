@@ -1,14 +1,10 @@
 package com.pratyaksh_khurana.codeforcesandroid.Fragments
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.CalendarContract
 import android.view.*
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -16,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pratyaksh_khurana.codeforcesandroid.Adapters.ContestAdapter
 import com.pratyaksh_khurana.codeforcesandroid.Adapters.ContestFragmentListener
 import com.pratyaksh_khurana.codeforcesandroid.DataClass.contest
-import com.pratyaksh_khurana.codeforcesandroid.DataClass.contest_obj
 import com.pratyaksh_khurana.codeforcesandroid.Interface.ApiInterface
 import com.pratyaksh_khurana.codeforcesandroid.R
 import kotlinx.android.synthetic.main.fragment_contests.*
@@ -24,16 +19,12 @@ import kotlinx.android.synthetic.main.fragment_contests.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ContestsFragment : Fragment(), ContestFragmentListener {
 
-    private lateinit var host: String
+    private lateinit var contestHost: String
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,8 +33,9 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_contests, container, false)
 
-        // load contest data
-        loadContests()
+        // load contest data when loading this fragment
+        loadAllContests()
+
         view.fragment_contest_websites.visibility = View.GONE
 
         view.fragment_contests_menu_icon.setOnClickListener {
@@ -55,78 +47,83 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
         }
 
         view.fragment_contests_codeforces.setOnClickListener {
-            host = "codeforces.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.codeforces))
+            loadAllContests(true, contestHost)
         }
         view.fragment_contests_codechef.setOnClickListener {
-            host = "codechef.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.codechef))
+            loadAllContests(true, contestHost)
         }
 
         view.fragment_contests_atcoder.setOnClickListener {
-            host = "atcoder.jp"
-            loadContests(true, host)
+            setContestHost(getString(R.string.atcoder))
+            loadAllContests(true, contestHost)
         }
         view.fragment_contests_leetcode.setOnClickListener {
-            host = "leetcode.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.leetcode))
+            loadAllContests(true, contestHost)
         }
         view.fragment_contests_hackerearth.setOnClickListener {
-            host = "hackerearth.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.hackerearth))
+            loadAllContests(true, contestHost)
         }
-        view.fragment_contests_hackerrank.setOnClickListener {
-            host = "codeforces.com"
-            loadContests(true, host)
+        view.fragment_contest_lightoj.setOnClickListener {
+            setContestHost(getString(R.string.lightoj))
+            loadAllContests(true, contestHost)
         }
         view.fragment_contests_coding_ninjas.setOnClickListener {
-            host = "codingninjas.com/codestudio"
-            loadContests(true, host)
+            setContestHost(getString(R.string.codingNinjas))
+            loadAllContests(true, contestHost)
         }
         view.fragment_contests_gfg.setOnClickListener {
-            host = "geeksforgeeks.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.gfg))
+            loadAllContests(true, contestHost)
         }
         view.fragment_contests_kaggle.setOnClickListener {
-            host = "kaggle.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.kaggle))
+            loadAllContests(true, contestHost)
         }
         view.fragment_contests_project_euler.setOnClickListener {
-            host = "codeforces.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.projecteuler))
+            loadAllContests(true, contestHost)
         }
 
-        view.fragment_contests_newton_school.setOnClickListener {
-            host = "codeforces.com"
-            loadContests(true, host)
+        view.fragment_contests_eolymp.setOnClickListener {
+            setContestHost(getString(R.string.eolymp))
+            loadAllContests(true, contestHost)
         }
 
         view.fragment_contests_google_kickstart_codejam.setOnClickListener {
-            host = "codingcompetitions.withgoogle.com/kickstart"
-            loadContests(true, host)
+            setContestHost(getString(R.string.google_kickstart))
+            loadAllContests(true, contestHost)
         }
 
         view.fragment_contests_prepbytes.setOnClickListener {
-            host = "mycode.prepbytes.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.prepbytes))
+            loadAllContests(true, contestHost)
         }
 
         view.fragment_contests_topcoder.setOnClickListener {
-            host = "topcoder.com"
-            loadContests(true, host)
+            setContestHost(getString(R.string.topcoder))
+            loadAllContests(true, contestHost)
         }
+
+        view.fragment_contests_ctftime.setOnClickListener {
+            setContestHost(getString(R.string.ctftime))
+            loadAllContests(true, contestHost)
+        }
+
         view.fragment_contests_fab.setOnClickListener {
-            openChromeCustomTabContestList()
+            openChromeCustomTabAllContestList()
         }
         view.filter_none.setOnClickListener {
-            loadContests()
-//            view.fragment_contest_websites.visibility = View.GONE
+            loadAllContests()
         }
 
         return view
     }
 
-    private fun loadContests(flag: Boolean = false, host: String = "") {
+    private fun loadAllContests(flag: Boolean = false, host: String = "") {
         val retrofit = ApiInterface.Helper.initialiseRetrofitBuilderObjectContest()
         showToast()
         if (flag) {
@@ -134,25 +131,17 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
 
             retrofitData.enqueue(object : Callback<contest> {
                 override fun onFailure(call: Call<contest>, t: Throwable) {
-                    fragment_contests_winner.visibility = View.VISIBLE
-                    fragment_contest_error_msg.visibility = View.VISIBLE
+                    showToast()
                 }
 
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(call: Call<contest>, response: Response<contest>) {
-                    fragment_contests_winner.visibility = View.GONE
-                    fragment_contest_error_msg.visibility = View.GONE
-
                     val data = response.body()
                     if (data != null) {
-                        contest_rv.layoutManager = LinearLayoutManager(context)
+                        contest_rv?.layoutManager = LinearLayoutManager(context)
                         val adapter = ContestAdapter(context, data.objects, this@ContestsFragment)
-                        contest_rv.adapter = adapter
-                        adapter.notifyDataSetChanged()
-                    } else {
-                        contest_rv.visibility = View.GONE
-                        fragment_contests_winner.visibility = View.VISIBLE
-                        fragment_contest_error_msg.visibility = View.VISIBLE
+                        contest_rv?.adapter = adapter
+                        adapter?.notifyDataSetChanged()
                     }
                 }
             })
@@ -161,33 +150,29 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
 
             retrofitData.enqueue(object : Callback<contest> {
                 override fun onFailure(call: Call<contest>, t: Throwable) {
-                    fragment_contests_winner.visibility = View.VISIBLE
-                    fragment_contest_error_msg.visibility = View.VISIBLE
+                    showToast()
                 }
 
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(call: Call<contest>, response: Response<contest>) {
-                    fragment_contests_winner?.visibility = View.GONE
-                    fragment_contest_error_msg?.visibility = View.GONE
-
                     val data = response.body()
                     if (data != null) {
                         contest_rv?.layoutManager = LinearLayoutManager(context)
                         val adapter = ContestAdapter(context, data.objects, this@ContestsFragment)
                         contest_rv?.adapter = adapter
                         adapter.notifyDataSetChanged()
-                    } else {
-                        contest_rv.visibility = View.GONE
-                        fragment_contests_winner.visibility = View.VISIBLE
-                        fragment_contest_error_msg.visibility = View.VISIBLE
                     }
                 }
             })
         }
     }
 
-    private fun openChromeCustomTabContestList() {
-        val url = "https://clist.by/"
+    private fun setContestHost(host: String) {
+        contestHost = host
+    }
+
+    private fun openChromeCustomTabAllContestList() {
+        val url = getString(R.string.clist_url)
         val builder = CustomTabsIntent.Builder()
         val customTabsIntent = builder.build()
         customTabsIntent.launchUrl(requireContext(), Uri.parse(url))
@@ -200,31 +185,10 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
         customTabsIntent.launchUrl(requireContext(), Uri.parse(href))
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun addToCalender(contestObj: contest_obj) {
-        val intent = Intent(Intent.ACTION_INSERT)
-        intent.data = CalendarContract.Events.CONTENT_URI
-        val date = getStartDate(contestObj.start)
-        intent.putExtra(CalendarContract.Events.TITLE, contestObj.event)
-        intent.putExtra(CalendarContract.Events.DESCRIPTION, contestObj.host)
-        intent.putExtra(CalendarContract.Events.ALL_DAY, true)
-        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, date)
-        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, contestObj.end)
-        startActivity(intent)
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    private fun getStartDate(date: String): String {
-        val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val date: Date = dateFormat.parse(date)
-        val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        return formatter.format(date)
-    }
-
     companion object {
     }
 
     private fun showToast() {
-        Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), R.string.loading, Toast.LENGTH_SHORT).show()
     }
 }

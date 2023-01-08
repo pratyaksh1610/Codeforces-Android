@@ -23,13 +23,16 @@ interface ApiInterface {
     @GET("/api/recentActions?maxCount=100")
     fun getAllRecentActions(): Call<news_json>
 
+    @GET("/api/user.info")
+    fun getCodeforcesHandle(@Query("handles") handles: String)
+
     object Helper {
-        private val BASE_URL_CONTESTS = "https://clist.by:443/"
-        private val BASE_URL_PROBLEMS = "https://codeforces.com/"
+        private val BASE_URL_CLIST = "https://clist.by:443/"
+        private val BASE_URL_CODEFORCES = "https://codeforces.com/"
 
         fun initialiseRetrofitBuilderObjectContest(): ApiInterface {
             return Retrofit.Builder()
-                .baseUrl(BASE_URL_CONTESTS)
+                .baseUrl(BASE_URL_CLIST)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiInterface::class.java)
@@ -37,7 +40,7 @@ interface ApiInterface {
 
         fun initialiseRetrofitBuilderObjectProblem(): ApiInterface {
             return Retrofit.Builder()
-                .baseUrl(BASE_URL_PROBLEMS)
+                .baseUrl(BASE_URL_CODEFORCES)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiInterface::class.java)

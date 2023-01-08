@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:padding="10dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +19,13 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/contest_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/google" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/google"
+                app:civ_border_color="#adb5bd"
+                app:civ_border_width="1dp" />
 
         </LinearLayout>
 
@@ -50,11 +52,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
                 android:fontFamily="@font/text"
-                android:text="20:05 Jan 3, Tuesday"
-                android:textSize="13sp" />
-
+                android:text="14-01-2023, 2 hr, codingninjas.com/codestudio"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

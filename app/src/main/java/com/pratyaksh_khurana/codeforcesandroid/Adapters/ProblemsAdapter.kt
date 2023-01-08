@@ -34,32 +34,33 @@ class ProblemsAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProblemsViewHolder, position: Int) {
-        holder.index.text = data[position].contestId.toString() + data[position].index + ":"
-        holder.name.text = data[position].name
-        holder.detail.text =
-            "Rating: " + data[position].rating.toString() + ", " + " Tags: " + data[position].tags
+        holder.contestIdIndex.text =
+            data[position].contestId.toString() + data[position].index + ":"
+        holder.problemName.text = data[position].name
+        holder.problemDetails.text =
+            "Difficulty: " + data[position].rating.toString() + ", " + " Tags: " + data[position].tags
 
-        holder.fav.setOnClickListener {
+        holder.addToFavourites.setOnClickListener {
             Toast.makeText(context, "// TODO - Added to favourites", Toast.LENGTH_SHORT).show()
         }
 
-        holder.name.setOnClickListener {
+        holder.problemName.setOnClickListener {
             listener.onClick(data[position].contestId.toString(), data[position].index)
         }
 
-        holder.detail.setOnClickListener {
+        holder.problemDetails.setOnClickListener {
             listener.onClick(data[position].contestId.toString(), data[position].index)
         }
-        holder.detail.setOnClickListener {
+        holder.problemDetails.setOnClickListener {
             listener.onClick(data[position].contestId.toString(), data[position].index)
         }
     }
 
     class ProblemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val index: TextView = itemView.findViewById(R.id.contestId_index)
-        val name: TextView = itemView.findViewById(R.id.problem_name)
-        val detail: TextView = itemView.findViewById(R.id.problem_details)
-        val fav: ImageView = itemView.findViewById(R.id.add_to_favourites)
+        val contestIdIndex: TextView = itemView.findViewById(R.id.contestId_index)
+        val problemName: TextView = itemView.findViewById(R.id.problem_name)
+        val problemDetails: TextView = itemView.findViewById(R.id.problem_details)
+        val addToFavourites: ImageView = itemView.findViewById(R.id.add_to_favourites)
     }
 }
 

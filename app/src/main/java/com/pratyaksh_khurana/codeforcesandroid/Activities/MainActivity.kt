@@ -16,33 +16,34 @@ class MainActivity : AppCompatActivity() {
         // Default navigation
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, ContestsFragment())
-            .addToBackStack("fragment_contests")
+            .addToBackStack(R.string.fragment_contests_tag.toString())
             .commit()
 
         contests_bottom_bar.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ContestsFragment())
-                .addToBackStack("fragment_contests")
+                .addToBackStack(R.string.fragment_contests_tag.toString())
                 .commit()
         }
 
         problems_bottom_bar.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ProblemsFragment())
-                .addToBackStack("fragment_problems")
+                .addToBackStack(R.string.fragment_problems_tag.toString())
                 .commit()
         }
 
         users_bottom_bar.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, UsersFragment())
-                .addToBackStack("fragment_users")
+                .addToBackStack(R.string.fragment_users_tag.toString())
                 .commit()
         }
+
         news_bottom_bar.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, NewsFragment())
-                .addToBackStack("fragment_news")
+                .addToBackStack(R.string.fragment_news_tag.toString())
                 .commit()
         }
     }

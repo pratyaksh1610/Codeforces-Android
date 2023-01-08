@@ -1,6 +1,36 @@
 <resources>
     <string name="app_name">DroidForces</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="filters">Filters</string>
+    <string name="fragment_contests_tag">fragment_contests</string>
+    <string name="fragment_problems_tag">fragment_problems</string>
+    <string name="fragment_users_tag">fragment_users</string>
+    <string name="fragment_news_tag">fragment_news</string>
+    <string name="all_contests">All contests</string>
+    <string name="contests">Contests</string>
+    <string name="contestDetails">%1$s, %2$s hr, %3$s</string>
+    <string name="correctDateFormat">%1$s%2$s-%3$s%4$s-%5$s%6$s%7$s%8$s</string>
+    <string name="loading">Loading…</string>
+    <string name="clist_url">https://clist.by/</string>
+    <string name="open_blog_comment">https://codeforces.com/blog/entry/%1$s#comment-%2$s</string>
+    <string name="open_blog">https://codeforces.com/blog/entry/%1$s</string>
+
+    <!--    contest websites-->
+    <string name="codeforces">codeforces.com</string>
+    <string name="codechef">codechef.com</string>
+    <string name="atcoder">atcoder.jp</string>
+    <string name="leetcode">leetcode.com</string>
+    <string name="hackerearth">hackerearth.com</string>
+    <string name="lightoj">lightoj.com</string>
+    <string name="codingNinjas">codingninjas.com/codestudio</string>
+    <string name="gfg">geeksforgeeks.org</string>
+    <string name="kaggle">kaggle.com</string>
+    <string name="projecteuler">projecteuler.net</string>
+    <string name="eolymp">eolymp.com</string>
+    <string name="google_kickstart">codingcompetitions.withgoogle.com/kickstart</string>
+    <string name="prepbytes">mycode.prepbytes.com</string>
+    <string name="topcoder">topcoder.com</string>
+    <string name="ctftime">ctftime.org</string>
+    <string name="algotester">algotester</string>
+
 </resources>
