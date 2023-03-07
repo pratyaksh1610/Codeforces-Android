@@ -2,6 +2,7 @@ package com.pratyaksh_khurana.codeforcesandroid.Adapters
 
 import android.content.Context
 import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,12 +34,12 @@ class NewsAdapter(
         val random = (20..50).random()
         val random1 = (1..19).random()
 
-        holder.blogTitle.text = data[position]?.blogEntry?.title.toString()
+        holder.blogTitle.text = Html.fromHtml(data[position]?.blogEntry?.title.toString()).toString()
         holder.createdTime.text = "$random minutes ago"
         holder.modifiedTime.text = "$random1 minutes ago"
         holder.userHandle.text = data[position]?.blogEntry?.authorHandle.toString()
         holder.commentHandle.text = data[position]?.comment?.commentatorHandle.toString()
-        holder.commentOfCommentHandle.text = data[position]?.comment?.text.toString()
+        holder.commentOfCommentHandle.text = Html.fromHtml(data[position]?.comment?.text.toString()).toString()
 
         val blogRating = data[position]?.blogEntry?.rating?.toString()?.toInt()
         val blogCommentRating = data[position]?.comment?.rating?.toString()?.toInt()

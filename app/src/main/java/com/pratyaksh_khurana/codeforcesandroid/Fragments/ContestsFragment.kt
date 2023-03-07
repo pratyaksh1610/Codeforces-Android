@@ -25,6 +25,7 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
 
     private lateinit var contestHost: String
 
+    @SuppressLint("CommitPrefEdits")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

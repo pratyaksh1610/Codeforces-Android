@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         // Default navigation
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, ContestsFragment())
-            .addToBackStack(R.string.fragment_contests_tag.toString())
-            .commit()
+            ?.replace(R.id.fragment_container, ContestsFragment())
+            ?.addToBackStack(R.string.fragment_contests_tag.toString())
+            ?.commit()
 
         contests_bottom_bar.setOnClickListener {
             supportFragmentManager.beginTransaction()
