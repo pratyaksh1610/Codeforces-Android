@@ -42,6 +42,7 @@ class ProblemsAdapter(
 
         holder.addToFavourites.setOnClickListener {
             Toast.makeText(context, "// TODO - Added to favourites", Toast.LENGTH_SHORT).show()
+            listener.addToFav(data[position])
         }
 
         holder.problemName.setOnClickListener {
@@ -66,4 +67,5 @@ class ProblemsAdapter(
 
 interface ProblemsFragmentListener {
     fun onClick(id: String, index: String)
+    fun addToFav(data: Problem)
 }

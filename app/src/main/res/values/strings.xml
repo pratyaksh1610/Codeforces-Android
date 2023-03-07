@@ -14,6 +14,7 @@
     <string name="clist_url">https://clist.by/</string>
     <string name="open_blog_comment">https://codeforces.com/blog/entry/%1$s#comment-%2$s</string>
     <string name="open_blog">https://codeforces.com/blog/entry/%1$s</string>
+    <string name="open_problem">https://codeforces.com/contest/%1$s/problem/%2$s</string>
 
     <!--    contest websites-->
     <string name="codeforces">codeforces.com</string>

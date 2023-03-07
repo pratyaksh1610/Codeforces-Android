@@ -1,27 +1,38 @@
 package com.pratyaksh_khurana.codeforcesandroid.Fragments
 
 import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pratyaksh_khurana.codeforcesandroid.Adapters.ProblemsAdapter
 import com.pratyaksh_khurana.codeforcesandroid.Adapters.ProblemsFragmentListener
+import com.pratyaksh_khurana.codeforcesandroid.DataClass.Problem
 import com.pratyaksh_khurana.codeforcesandroid.DataClass.codeforces_problem
+import com.pratyaksh_khurana.codeforcesandroid.Entities.EachProblem
 import com.pratyaksh_khurana.codeforcesandroid.Interface.ApiInterface
 import com.pratyaksh_khurana.codeforcesandroid.R
+import com.pratyaksh_khurana.codeforcesandroid.Viewmodel.ProblemViewModel
 import kotlinx.android.synthetic.main.fragment_contests.*
+import kotlinx.android.synthetic.main.fragment_contests.view.*
 import kotlinx.android.synthetic.main.fragment_problems.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class ProblemsFragment : Fragment(), ProblemsFragmentListener {
+
+    private val viewModel: ProblemViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +44,13 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
 
         // load problems on fragment
         loadProblems()
+
+        view.fragment_contests_fab.setOnClickListener {
+//            fragmentManager?.beginTransaction()
+//                ?.replace(R.id.fragment_container, FavouriteProblemsFragment())
+//                ?.addToBackStack(null)
+//                ?.commit()
+        }
 
         return view
     }
@@ -73,10 +91,38 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
     }
 
     override fun onClick(id: String, index: String) {
-        val href = "https://codeforces.com/contest/$id/problem/$index"
+        val href = getProblemLink(id, index)
         val builder = CustomTabsIntent.Builder()
         val customTabsIntent = builder.build()
         customTabsIntent.launchUrl(requireContext(), Uri.parse(href))
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun addToFav(data: Problem) {
+        val problemLink = getProblemLink(data.contestId.toString(), data.index)
+        // TODO add tags list to show in favourites
+        val listOfTags = StringBuilder()
+        for (i in data.tags.toString()) {
+            listOfTags.append(i)
+        }
+        viewModel.addToFavourites(
+            EachProblem(
+                null,
+                data.contestId,
+                data.index,
+                data.name,
+                data.points,
+                data.rating,
+                data.type,
+                problemLink,
+                SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date()).toString(),
+                listOfTags.toString()
+            )
+        )
+    }
+
+    private fun getProblemLink(id: String, index: String): String {
+        return getString(R.string.open_problem, id, index)
     }
 
     private fun showToast() {
