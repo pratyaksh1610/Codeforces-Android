@@ -1,8 +1,10 @@
 package com.pratyaksh_khurana.codeforcesandroid.Fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.view.*
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
@@ -186,10 +188,45 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
         customTabsIntent.launchUrl(requireContext(), Uri.parse(href))
     }
 
+    override fun addToCalender(date: String, contestName: String, contestWebsiteName: String) {
+        // set calender event
+
+        val extractDate = (date[0].toString() + date[1].toString()).toInt()
+        val extractMonth = (date[3].toString() + date[4].toString()).toInt()
+        val extractYear =
+            (date[6].toString() + date[7].toString() + date[8].toString() + date[9].toString()).toInt()
+
+        showCustomToast("Set calender event")
+
+        val calendar = Calendar.getInstance()
+        val hour12hrs = calendar[Calendar.HOUR]
+        val minutes = calendar[Calendar.MINUTE]
+
+        val startMillis: Long = Calendar.getInstance().run {
+            set(extractYear, extractMonth - 1, extractDate, hour12hrs, minutes)
+            timeInMillis
+        }
+
+        val intent = Intent(Intent.ACTION_INSERT)
+            .setData(CalendarContract.Events.CONTENT_URI)
+            .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis)
+            .putExtra(CalendarContract.Events.TITLE, contestName)
+            .putExtra(CalendarContract.Events.DESCRIPTION, contestWebsiteName)
+            .putExtra(
+                CalendarContract.Events.AVAILABILITY,
+                CalendarContract.Events.AVAILABILITY_BUSY
+            )
+        startActivity(intent)
+    }
+
     companion object {
     }
 
     private fun showToast() {
         Toast.makeText(requireContext(), R.string.loading, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showCustomToast(s: String) {
+        Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show()
     }
 }

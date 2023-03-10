@@ -46,10 +46,10 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
         loadProblems()
 
         view.fragment_contests_fab.setOnClickListener {
-//            fragmentManager?.beginTransaction()
-//                ?.replace(R.id.fragment_container, FavouriteProblemsFragment())
-//                ?.addToBackStack(null)
-//                ?.commit()
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, FavouriteProblemsFragment())
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
         return view

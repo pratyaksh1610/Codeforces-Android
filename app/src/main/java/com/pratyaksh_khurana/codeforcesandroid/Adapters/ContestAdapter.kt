@@ -123,6 +123,7 @@ class ContestAdapter(
         }
 
         holder.addToCalender.setOnClickListener {
+            listener.addToCalender(correctDateFormat.toString(), contestName, contestWebsiteName)
         }
     }
 
@@ -136,4 +137,5 @@ class ContestAdapter(
 
 interface ContestFragmentListener {
     fun onClickOfContest(href: String)
+    fun addToCalender(date: String, contestName: String, contestWebsiteName: String)
 }
