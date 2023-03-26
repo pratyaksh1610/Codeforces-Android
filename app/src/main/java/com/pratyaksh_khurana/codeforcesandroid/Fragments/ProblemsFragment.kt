@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,11 +26,14 @@ import com.pratyaksh_khurana.codeforcesandroid.R
 import com.pratyaksh_khurana.codeforcesandroid.Viewmodel.ProblemViewModel
 import kotlinx.android.synthetic.main.fragment_contests.*
 import kotlinx.android.synthetic.main.fragment_contests.view.*
+import kotlinx.android.synthetic.main.fragment_contests.view.fragment_contests_fab
 import kotlinx.android.synthetic.main.fragment_problems.*
+import kotlinx.android.synthetic.main.fragment_problems.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ProblemsFragment : Fragment(), ProblemsFragmentListener {
 
@@ -52,17 +57,30 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
                 ?.commit()
         }
 
+        view.fragment_contest_problems_by_rating.visibility = View.GONE
+
+        view.problemsByRating.setOnClickListener {
+            if (view.fragment_contest_problems_by_rating.isVisible) {
+                view.fragment_contest_problems_by_rating.visibility = View.GONE
+            } else {
+                view.fragment_contest_problems_by_rating.visibility = View.VISIBLE
+            }
+        }
+
+
+
+
         return view
     }
 
     private fun loadProblems() {
         val retrofit = ApiInterface.Helper.initialiseRetrofitBuilderObjectProblem()
-        showToast()
+        showToast("Loading...")
         val retrofitData = retrofit.getAllProblems()
 
         retrofitData.enqueue(object : Callback<codeforces_problem> {
             override fun onFailure(call: Call<codeforces_problem>, t: Throwable) {
-                showToast()
+                showToast("Loading...")
             }
 
             @SuppressLint("NotifyDataSetChanged")
@@ -105,6 +123,7 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
         for (i in data.tags.toString()) {
             listOfTags.append(i)
         }
+
         viewModel.addToFavourites(
             EachProblem(
                 null,
@@ -125,7 +144,7 @@ class ProblemsFragment : Fragment(), ProblemsFragmentListener {
         return getString(R.string.open_problem, id, index)
     }
 
-    private fun showToast() {
-        Toast.makeText(requireContext(), R.string.loading, Toast.LENGTH_SHORT).show()
+    private fun showToast(s: String) {
+        Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show()
     }
 }

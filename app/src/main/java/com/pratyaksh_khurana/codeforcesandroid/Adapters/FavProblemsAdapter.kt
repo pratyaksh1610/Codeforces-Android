@@ -2,6 +2,7 @@ package com.pratyaksh_khurana.codeforcesandroid.Adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,40 +10,34 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.pratyaksh_khurana.codeforcesandroid.DataClass.Problem
+import com.pratyaksh_khurana.codeforcesandroid.Entities.EachProblem
 import com.pratyaksh_khurana.codeforcesandroid.R
 
-class ProblemsAdapter(
+class FavProblemsAdapter(
     private val context: Context,
-    private val data: List<Problem>,
-    private val listener: ProblemsFragmentListener
+    private val data: List<EachProblem>,
+    private val listener: FavouriteProblemsFragmentListener
 ) :
-    RecyclerView.Adapter<ProblemsAdapter.ProblemsViewHolder>() {
-
+    RecyclerView.Adapter<FavProblemsAdapter.FavViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ProblemsViewHolder {
+    ): FavViewHolder {
         val view =
             LayoutInflater.from(context).inflate(R.layout.each_problem_item_layout, parent, false)
-        return ProblemsViewHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
+        return FavViewHolder(view)
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ProblemsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavViewHolder, position: Int) {
         holder.contestIdIndex.text =
             data[position].contestId.toString() + data[position].index + ":"
         holder.problemName.text = data[position].name
         holder.problemDetails.text =
-            "Difficulty: " + data[position].rating.toString() + ", " + " Tags: " + data[position].tags
+            "Difficulty: " + data[position].rating.toString() + ", " + " Tags: " + data[position].t
 
         holder.addToFavourites.setOnClickListener {
-            Toast.makeText(context, "Added to favourites", Toast.LENGTH_SHORT).show()
-            listener.addToFav(data[position])
+            listener.removeFromFav(data[position])
         }
 
         holder.problemName.setOnClickListener {
@@ -55,9 +50,14 @@ class ProblemsAdapter(
         holder.problemDetails.setOnClickListener {
             listener.onClick(data[position].contestId.toString(), data[position].index)
         }
+        holder.addToFavourites.setColorFilter(Color.parseColor("#FFC107"))
     }
 
-    class ProblemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
+    class FavViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val contestIdIndex: TextView = itemView.findViewById(R.id.contestId_index)
         val problemName: TextView = itemView.findViewById(R.id.problem_name)
         val problemDetails: TextView = itemView.findViewById(R.id.problem_details)
@@ -65,7 +65,7 @@ class ProblemsAdapter(
     }
 }
 
-interface ProblemsFragmentListener {
+interface FavouriteProblemsFragmentListener {
     fun onClick(id: String, index: String)
-    fun addToFav(data: Problem)
+    fun removeFromFav(data: EachProblem)
 }

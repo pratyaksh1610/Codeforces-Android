@@ -8,6 +8,7 @@ import android.provider.CalendarContract
 import android.view.*
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -188,6 +189,7 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
         customTabsIntent.launchUrl(requireContext(), Uri.parse(href))
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     override fun addToCalender(date: String, contestName: String, contestWebsiteName: String) {
         // set calender event
 
@@ -195,8 +197,6 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
         val extractMonth = (date[3].toString() + date[4].toString()).toInt()
         val extractYear =
             (date[6].toString() + date[7].toString() + date[8].toString() + date[9].toString()).toInt()
-
-        showCustomToast("Set calender event")
 
         val calendar = Calendar.getInstance()
         val hour12hrs = calendar[Calendar.HOUR]
@@ -217,6 +217,7 @@ class ContestsFragment : Fragment(), ContestFragmentListener {
                 CalendarContract.Events.AVAILABILITY_BUSY
             )
         startActivity(intent)
+        showCustomToast("Set calender event")
     }
 
     companion object {

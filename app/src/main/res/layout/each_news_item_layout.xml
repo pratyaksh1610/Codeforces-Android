@@ -41,7 +41,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -52,7 +52,7 @@
                         android:fontFamily="@font/text"
                         android:text="Editorial for Hello 2023"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -125,13 +125,13 @@
                     android:id="@+id/commentator_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="30dp"
                         android:src="@drawable/codeforces" />
 
                     <TextView
@@ -184,8 +184,7 @@
                     android:id="@+id/comment_of_comment_handle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="70dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
                     android:fontFamily="@font/text"
                     android:text="fdsf ds f fsdf ds fds fds fds f dsf dsf ds fds fds fds fds fds fds f dsfds f dsf dsf dsf ds fds fds fds s f dd fsd f ds f s df"
                     android:textSize="12sp"
